@@ -34,7 +34,6 @@ let checkToken = (req, res, next) => {
 };
 
 let login = async (req, res, next) => {
-    console.log("login")
     let username = req.body.username;
     let password = req.body.password;
     let user = new User(username)
@@ -83,11 +82,9 @@ let login = async (req, res, next) => {
 }
 
 let createUser = async (req, res, next) => {
-    console.log("create")
     try {
         let username = req.body.username
         if(await User.checkUsername(username)){
-            console.log("xd")
             res.status(400).json({message: "The username has been already taken", success: false})
         }
         else {

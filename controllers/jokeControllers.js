@@ -7,8 +7,6 @@ exports.getAllJokes = async (req, res, next) => {
     try {
         let [jokes, _] = await Joke.findAll()
         res.status(200).json({jokes, success: true})
-        console.log("helloddd")
-
     } catch (error) {
         console.log(error)
         next(error)
@@ -18,7 +16,6 @@ exports.getAllJokes = async (req, res, next) => {
 
 exports.unlikeJokeById = async (req, res, next) => {
     try{
-        console.log("happening")
         let joke = await Joke.unlikeById(req.params.id)
         await User.setUnlikedInDatabase(authentication.parseToken(req).id, req.params.id)
         res.status(200).json({success:true, joke: joke[0]})
@@ -97,12 +94,10 @@ exports.getJokeById = async (req, res, next) => {
 
 exports.deleteJoke = async (req, res, next) => {
     try {
-        console.log("xaxax")
         let userId = await authentication.parseToken(req).id
         let userDatabase = "jokes" + userId
         let createdJokes = await User.getCreatedJokes(userDatabase)
         let inDatabase
-        console.log("pog")
         for (let i = 0; i < createdJokes.length; i++) {
             console.log(createdJokes[i].id)
             console.log(Number(req.params.id))
@@ -124,7 +119,4 @@ exports.deleteJoke = async (req, res, next) => {
         next(e)
     }
 
-}
-exports.aa = () =>{
-    console.log("hello")
 }
